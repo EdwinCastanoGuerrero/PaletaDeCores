@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-100">
+    
+    <div class="flex items-center justify-center h-screen">
+        
+        <div class="p-6 bg-slate-400 text-slate-500 border-1 border-slate-400 rounded-lg shadow-md w-1/2">
+            
+            <p class="text-2xl text-slate-700">Color Pallete Creator</p>
+
+            <hr class="border-slate-300 my-3">
+            
+            <div class="flex justify-between">
+                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_0"></div>
+                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_1"></div>
+                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_2"></div>
+                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_3"></div>
+                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_4"></div>
+            </div>
+            
+            <hr class="border-slate-300 my-3">
+
+            <div class="flex gap-4 my-8">
+                
+                <div class="flex justify-end items-center w-1/4">
+                    <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="main_color"></div>
+                </div>
+
+                <div class="flex-1 flex-col">
+                    <div>
+                        <label for="range_red" class="text-slate-900">Red</label>
+                        <input type="range" class="w-full" name="range_red" id="range_red" min="0" max="255">
+                    </div>
+                    <div>
+                        <label for="range_green" class="text-slate-900">Green</label>
+                        <input type="range" class="w-full" name="range_green" id="range_green" min="0" max="255">
+                    </div>
+                    <div>
+                        <label for="range_blue" class="text-slate-900">Blue</label>
+                        <input type="range" class="w-full" name="range_blue" id="range_blue" min="0" max="255">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center">
+                <button class="bg-slate-600 w-50 text-slate-100 p-2 text-center border-1 border-slate-400 rounded-lg cursor-pointer shadow-md hover:bg-slate-500 hover:text-slate-100" id="btn_export">Exportar cores</button>
+                <p class="text-slate-900 text-center mt-3 hidden" id="export_message">Todas as cores foram exportadas para o clipboard.</p>
+            </div>
+
+        </div>
+
+      </div>
+
+</body>
