@@ -7,52 +7,79 @@
     <link rel="shortcut icon" href="favicon.png" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-slate-100">
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
     
-    <div class="flex items-center justify-center h-screen">
+    <div class="flex items-center justify-center min-h-screen py-8 px-4">
         
-        <div class="p-6 bg-slate-400 text-slate-500 border-1 border-slate-400 rounded-lg shadow-md w-1/2">
+        <div class="w-full max-w-3xl p-8 bg-white rounded-2xl shadow-2xl">
             
-            <p class="text-2xl text-slate-700">Color Pallete Creator</p>
-
-            <hr class="border-slate-300 my-3">
-            
-            <div class="flex justify-between">
-                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_0"></div>
-                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_1"></div>
-                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_2"></div>
-                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_3"></div>
-                <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="color_4"></div>
+            <div class="mb-8">
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Color Palette Creator</h1>
+                <p class="text-slate-500 mt-2">Crie e personalize sua paleta de cores harmônica</p>
             </div>
-            
-            <hr class="border-slate-300 my-3">
 
-            <div class="flex gap-4 my-8">
+            <div class="bg-gradient-to-r from-slate-50 to-slate-100 p-6 rounded-xl mb-8">
+                <p class="text-sm font-semibold text-slate-600 mb-4 uppercase tracking-wide">Paleta de Cores</p>
+                <div class="flex justify-between gap-3">
+                    <div class="group cursor-pointer">
+                        <div class="border-2 border-slate-300 w-20 h-20 rounded-lg transition-all duration-300 hover:border-slate-500 hover:shadow-lg" id="color_0"></div>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <div class="border-2 border-slate-300 w-20 h-20 rounded-lg transition-all duration-300 hover:border-slate-500 hover:shadow-lg" id="color_1"></div>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <div class="border-2 border-slate-300 w-20 h-20 rounded-lg transition-all duration-300 hover:border-slate-500 hover:shadow-lg" id="color_2"></div>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <div class="border-2 border-slate-300 w-20 h-20 rounded-lg transition-all duration-300 hover:border-slate-500 hover:shadow-lg" id="color_3"></div>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <div class="border-2 border-slate-300 w-20 h-20 rounded-lg transition-all duration-300 hover:border-slate-500 hover:shadow-lg" id="color_4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-8 items-stretch">
                 
-                <div class="flex justify-end items-center w-1/4">
-                    <div class="border-1 border-slate-900 w-[100px] h-[100px]" id="main_color"></div>
+                <div class="col-span-1 flex items-center justify-center">
+                    <div class="w-24 h-24 rounded-xl border-4 border-slate-200 shadow-lg transition-all duration-300" id="main_color"></div>
                 </div>
 
-                <div class="flex-1 flex-col">
-                    <div>
-                        <label for="range_red" class="text-slate-900">Red</label>
-                        <input type="range" class="w-full" name="range_red" id="range_red" min="0" max="255">
-                    </div>
-                    <div>
-                        <label for="range_green" class="text-slate-900">Green</label>
-                        <input type="range" class="w-full" name="range_green" id="range_green" min="0" max="255">
-                    </div>
-                    <div>
-                        <label for="range_blue" class="text-slate-900">Blue</label>
-                        <input type="range" class="w-full" name="range_blue" id="range_blue" min="0" max="255">
+                <div class="col-span-2 bg-gradient-to-br from-slate-50 to-slate-100 p-6 rounded-xl">
+                    <p class="text-sm font-semibold text-slate-600 mb-6 uppercase tracking-wide">Ajustar Cor</p>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label for="range_red" class="font-semibold text-slate-700">Vermelho</label>
+                                <span class="text-sm font-mono bg-red-100 text-red-700 px-3 py-1 rounded-lg" id="value_red">0</span>
+                            </div>
+                            <input type="range" class="w-full h-2 bg-gradient-to-r from-slate-200 to-red-400 rounded-lg appearance-none cursor-pointer accent-red-500" name="range_red" id="range_red" min="0" max="255">
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label for="range_green" class="font-semibold text-slate-700">Verde</label>
+                                <span class="text-sm font-mono bg-green-100 text-green-700 px-3 py-1 rounded-lg" id="value_green">0</span>
+                            </div>
+                            <input type="range" class="w-full h-2 bg-gradient-to-r from-slate-200 to-green-400 rounded-lg appearance-none cursor-pointer accent-green-500" name="range_green" id="range_green" min="0" max="255">
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label for="range_blue" class="font-semibold text-slate-700">Azul</label>
+                                <span class="text-sm font-mono bg-blue-100 text-blue-700 px-3 py-1 rounded-lg" id="value_blue">0</span>
+                            </div>
+                            <input type="range" class="w-full h-2 bg-gradient-to-r from-slate-200 to-blue-400 rounded-lg appearance-none cursor-pointer accent-blue-500" name="range_blue" id="range_blue" min="0" max="255">
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <div class="text-center">
-                <button class="bg-slate-600 w-50 text-slate-100 p-2 text-center border-1 border-slate-400 rounded-lg cursor-pointer shadow-md hover:bg-slate-500 hover:text-slate-100" id="btn_export">Exportar cores</button>
-                <p class="text-slate-900 text-center mt-3 hidden" id="export_message">Todas as cores foram exportadas para o clipboard.</p>
+            <div class="mt-8 pt-8 border-t border-slate-200">
+                <button class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105" id="btn_export">Exportar Cores</button>
+                <p class="text-center text-green-600 font-semibold mt-4 hidden" id="export_message">✓ Todas as cores foram copiadas para o clipboard!</p>
             </div>
 
         </div>

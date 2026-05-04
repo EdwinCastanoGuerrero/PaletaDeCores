@@ -51,21 +51,29 @@ function setSelectedColorCard(index) {
     red.value = colors[index]?.red || 0;
     green.value = colors[index]?.green || 0;
     blue.value = colors[index]?.blue || 0;
+    
+    // Atualizar os valores exibidos
+    document.querySelector("#value_red").textContent = colors[index]?.red || 0;
+    document.querySelector("#value_green").textContent = colors[index]?.green || 0;
+    document.querySelector("#value_blue").textContent = colors[index]?.blue || 0;
 }
 
 
 red.addEventListener('input', () => {
     colors[colorCardIndex].red = red.value;
+    document.querySelector("#value_red").textContent = red.value;
     updateMainColor();
     updateColorCard();
 });
 green.addEventListener('input', () => {
     colors[colorCardIndex].green = green.value;
+    document.querySelector("#value_green").textContent = green.value;
     updateMainColor();
     updateColorCard();
 });
 blue.addEventListener('input', () => {
     colors[colorCardIndex].blue = blue.value;
+    document.querySelector("#value_blue").textContent = blue.value;
     updateMainColor();
     updateColorCard();
 });
