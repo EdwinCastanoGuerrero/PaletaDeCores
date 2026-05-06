@@ -1,16 +1,16 @@
+// Seletores
+const colorCards = document.querySelectorAll('div[id^="color_"]');
+const mainColor = document.querySelector('#main_color');
+const redInput = document.querySelector('#range_red');
+const greenInput = document.querySelector('#range_green');
+const blueInput = document.querySelector('#range_blue');
+const valueRed = document.querySelector('#value_red');
+const valueGreen = document.querySelector('#value_green');
+const valueBlue = document.querySelector('#value_blue');
+const exportButton = document.querySelector('#btn_export');
+const exportMessage = document.querySelector('#export_message');
 
-//Cores
-
-let colorCards = document.querySelectorAll('div[id^="color_"]');
-let mainColor = document.querySelector("#main_color"); //Quadrado principal
-
-//Ranges
-let red = document.querySelector("#range_red");
-let green = document.querySelector("#range_green");
-let blue = document.querySelector("#range_blue");
-
-//cor base
-let colors = [
+const colors = [
     { red: 0, green: 0, blue: 0 },
     { red: 50, green: 0, blue: 0 },
     { red: 100, green: 0, blue: 0 },
@@ -18,98 +18,84 @@ let colors = [
     { red: 255, green: 0, blue: 0 },
 ];
 
-//cor selecionada
-let colorCardIndex = 0;
+let selectedIndex = 0;
 
-setDefaultColorCards();
+init();
 
-setSelectedColorCard(colorCardIndex);
+function init() {
+    setDefaultColorCards();
+    setSelectedColorCard(selectedIndex);
+    attachListeners();
+}
+
+function attachListeners() {
+    colorCards.forEach((card, index) => {
+        card.addEventListener('click', () => setSelectedColorCard(index));
+    });
+
+    redInput.addEventListener('input', ({ target }) => updateCurrentColor('red', target.value));
+    greenInput.addEventListener('input', ({ target }) => updateCurrentColor('green', target.value));
+    blueInput.addEventListener('input', ({ target }) => updateCurrentColor('blue', target.value));
+
+    exportButton.addEventListener('click', exportColors);
+}
+
+function rgbString(color) {
+    return `rgb(${color.red}, ${color.green}, ${color.blue})`;
+}
 
 function setDefaultColorCards() {
     colorCards.forEach((card, index) => {
-        card.style.backgroundColor = `rgb(${colors[index]?.red || 0},${colors[index]?.green || 0},${colors[index]?.blue || 0})`;
+        card.style.backgroundColor = rgbString(colors[index] || { red: 0, green: 0, blue: 0 });
     });
 }
 
 function setSelectedColorCard(index) {
-    
-    // atualizar o índice da cor selecionada
-    colorCardIndex = index;
-
-    // remover todas as seleções visuais do HTML
-    colorCards.forEach(card => {
-        card.classList.remove('border-3', 'border-white');
-    });
-
-    // definir a cor selecionada (visualmente)
+    selectedIndex = index;
+    colorCards.forEach(card => card.classList.remove('border-3', 'border-white'));
     colorCards[index].classList.add('border-3', 'border-white');
 
-
-    //definindo a cor da caixa principal
-    mainColor.style.backgroundColor = `rgb(${colors[index]?.red || 0},${colors[index]?.green || 0},${colors[index]?.blue || 0})`;
-
-    red.value = colors[index]?.red || 0;
-    green.value = colors[index]?.green || 0;
-    blue.value = colors[index]?.blue || 0;
-    
-    // Atualizar os valores exibidos
-    document.querySelector("#value_red").textContent = colors[index]?.red || 0;
-    document.querySelector("#value_green").textContent = colors[index]?.green || 0;
-    document.querySelector("#value_blue").textContent = colors[index]?.blue || 0;
+    updateMainColor();
+    updateSelectedInputs();
 }
 
-
-red.addEventListener('input', () => {
-    colors[colorCardIndex].red = red.value;
-    document.querySelector("#value_red").textContent = red.value;
-    updateMainColor();
-    updateColorCard();
-});
-green.addEventListener('input', () => {
-    colors[colorCardIndex].green = green.value;
-    document.querySelector("#value_green").textContent = green.value;
-    updateMainColor();
-    updateColorCard();
-});
-blue.addEventListener('input', () => {
-    colors[colorCardIndex].blue = blue.value;
-    document.querySelector("#value_blue").textContent = blue.value;
-    updateMainColor();
-    updateColorCard();
-});
-
-
-
-//funções
-
-function updateMainColor(){
-    mainColor.style.backgroundColor = `rgb(${colors[colorCardIndex].red},${colors[colorCardIndex].green},${colors[colorCardIndex].blue})`;
+function updateSelectedInputs() {
+    const color = colors[selectedIndex];
+    redInput.value = color.red;
+    greenInput.value = color.green;
+    blueInput.value = color.blue;
+    updateValueLabels(color);
 }
 
-function updateColorCard(){
-    colorCards[colorCardIndex].style.backgroundColor = `rgb(${colors[colorCardIndex].red},${colors[colorCardIndex].green},${colors[colorCardIndex].blue})`;
+function updateValueLabels(color) {
+    valueRed.textContent = color.red;
+    valueGreen.textContent = color.green;
+    valueBlue.textContent = color.blue;
 }
 
+function updateCurrentColor(channel, value) {
+    colors[selectedIndex][channel] = Number(value);
+    updateValueLabels(colors[selectedIndex]);
+    updateMainColor();
+    updateColorCard();
+}
 
+function updateMainColor() {
+    mainColor.style.backgroundColor = rgbString(colors[selectedIndex]);
+}
 
-colorCards.forEach((card, index) => {
-    card.addEventListener('click', () => {
-        setSelectedColorCard(index);
-    });
-});
+function updateColorCard() {
+    colorCards[selectedIndex].style.backgroundColor = rgbString(colors[selectedIndex]);
+}
 
-//exportar as cores
+function exportColors() {
+    const exportText = colors.map(rgbString).join('\n');
+    navigator.clipboard.writeText(exportText);
+    showExportMessage();
+}
 
-document.querySelector("#btn_export").addEventListener("click", () => {
-    // Lógica para exportar as cores
-    let colorSString = '';
-    colors.forEach(color => {
-        colorSString += `rgb(${color.red}, ${color.green}, ${color.blue})\n`;
-    });
-    navigator.clipboard.writeText(colorSString);
-    document.querySelector("#export_message").classList.remove("hidden");
-    setTimeout(() => {
-        document.querySelector("#export_message").classList.add("hidden");
-    }, 3000);
-});
+function showExportMessage() {
+    exportMessage.classList.remove('hidden');
+    setTimeout(() => exportMessage.classList.add('hidden'), 3000);
+}
 
